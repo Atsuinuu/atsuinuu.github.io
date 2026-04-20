@@ -31,27 +31,29 @@ body {
 
 /* ─── Custom cursor ─── */
 .cursor {
-  position: fixed; top: 0; left: 0; z-index: 9999;
-  pointer-events: none; mix-blend-mode: multiply;
+  position: fixed; top: 0; left: 0; z-index: 99999;
+  pointer-events: none;
 }
 .cursor-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--accent);
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #fff;
+  outline: 2px solid rgba(0,0,0,0.5);
   transform: translate(-50%,-50%);
   transition: transform .1s ease;
 }
 .cursor-ring {
   width: 36px; height: 36px; border-radius: 50%;
-  border: 1.5px solid var(--accent);
+  border: 2px solid rgba(255,255,255,0.9);
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.6));
   transform: translate(-50%,-50%);
   transition: transform .25s ease, width .25s ease, height .25s ease, opacity .25s ease;
 }
-body.hovering .cursor-ring { width: 56px; height: 56px; opacity: .5; }
+body.hovering .cursor-ring { width: 56px; height: 56px; opacity: .9; }
 
 /* ─── Noise overlay ─── */
 body::before {
   content: '';
-  position: fixed; inset: 0; z-index: 9998;
+  position: fixed; inset: 0; z-index: 1;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
   opacity: .5;
