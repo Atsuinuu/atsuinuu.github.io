@@ -19,7 +19,7 @@
   <!-- Navigation -->
   <nav>
     <a href="#" class="nav-logo">Eljam Padilla</a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="navLinks">
       <li><a href="#characters">Characters</a></li>
       <li><a href="#portraits">Portraits</a></li>
       <li><a href="#backgrounds">Backgrounds</a></li>
@@ -27,6 +27,9 @@
       <li><a href="#animation">Animation</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- Hero -->
@@ -522,14 +525,30 @@
   </footer>
 
   <script>
-    // ─── Custom cursor
-    const dot = document.getElementById('cursorDot');
+    // ─── Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+    // Close menu when a link is tapped
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // ─── Custom cursor (desktop only)
+    const dot  = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
 
     document.addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
-      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      dot.style.left  = mx + 'px'; dot.style.top  = my + 'px';
     });
 
     function animRing() {
@@ -548,18 +567,18 @@
     // ─── Scroll reveal
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     // ─── Nav section highlight
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
+    const navAnchors = document.querySelectorAll('.nav-links a');
     const ioNav = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          navLinks.forEach(a => {
+          navAnchors.forEach(a => {
             a.style.color = a.getAttribute('href') === '#' + e.target.id
-              ? 'var(--accent)' : '';
+              ? 'var(--gold)' : '';
           });
         }
       });
