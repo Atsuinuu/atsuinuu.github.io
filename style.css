@@ -40,7 +40,7 @@ body {
 }
 .cursor-ring {
   position: absolute; width: 30px; height: 30px; border-radius: 50%;
-  border: 1.5px solid rgba(10,10,10,.45);
+  border: 1.5px solid rgba(255,255,255,.45);
   transform: translate(-50%,-50%);
   transition: width .25s, height .25s, opacity .25s, border-color .15s;
 }
