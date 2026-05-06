@@ -560,9 +560,25 @@
     const dot  = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
     let mx=0,my=0,rx=0,ry=0;
+
+    // Sections with dark backgrounds get cursor-light class on body
+    const darkSections = new Set(['work', 'backgrounds', 'animation']);
+
     document.addEventListener('mousemove', e => {
       mx=e.clientX; my=e.clientY;
       dot.style.left=mx+'px'; dot.style.top=my+'px';
+
+      // Detect background under cursor
+      const el = document.elementFromPoint(mx, my);
+      const section = el && el.closest('section[id]');
+      if (section && darkSections.has(section.id)) {
+        document.body.classList.add('cursor-light');
+      } else {
+        document.body.classList.remove('cursor-light');
+      }
+      // Hero and ticker are also dark
+      const inDarkZone = el && (el.closest('.hero') || el.closest('.ticker-wrap') || el.closest('footer'));
+      if (inDarkZone) document.body.classList.add('cursor-light');
     });
     (function animRing(){
       rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
